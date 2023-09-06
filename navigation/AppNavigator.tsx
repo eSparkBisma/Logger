@@ -12,27 +12,21 @@ const AppNavigator = () => {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen
-          name="Coffee Log"
-          component={CoffeeLogScreen}
-          options={{headerShown: false}}
-        />
-        <Stack.Screen
-          name="New Logs"
+          name="NewLogScreen"
           component={NewLogScreen}
           options={{headerShown: false}}
         />
         <Stack.Screen
-          name="Logs."
+          name="ViewLogsScreen"
           component={ViewLogsScreen}
           options={{
             headerShown: false,
-            // title: 'Logs.',
-            // headerTitleAlign: 'center',
-            // headerTitleStyle: {
-            //   fontWeight: '900',
-            //   fontSize: 40,
-            // },
           }}
+        />
+        <Stack.Screen
+          name="CoffeeLogScreen"
+          component={CoffeeLogScreen}
+          options={{headerShown: false}}
         />
       </Stack.Navigator>
     </NavigationContainer>

@@ -4,10 +4,11 @@ import AppImage from './AppImage'; // Adjust the import path as needed
 import {IconButton} from 'react-native-paper';
 
 interface LogProps {
-  imageSource: ImageSourcePropType;
+  imageSource: any;
   title: string;
   entryCount: number;
   latestEntryTime: string;
+  onPress?: () => void;
 }
 
 const Log: React.FC<LogProps> = ({
@@ -15,6 +16,7 @@ const Log: React.FC<LogProps> = ({
   title,
   entryCount,
   latestEntryTime,
+  onPress,
 }) => {
   return (
     <View
@@ -40,13 +42,7 @@ const Log: React.FC<LogProps> = ({
         </View>
       </View>
 
-      <IconButton
-        icon="chevron-right"
-        size={50}
-        onPress={() => {
-          console.log('log arrow pressed');
-        }}
-      />
+      <IconButton icon="chevron-right" size={50} onPress={onPress} />
     </View>
   );
 };

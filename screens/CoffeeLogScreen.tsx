@@ -1,21 +1,91 @@
 import {useNavigation} from '@react-navigation/native';
 import React from 'react';
-import {StatusBar, View} from 'react-native';
-import {Appbar, Button, Card, IconButton, Text} from 'react-native-paper';
+import {FlatList, StatusBar, View} from 'react-native';
+import {Appbar, Button, IconButton, Text} from 'react-native-paper';
 import AppImage from '../components/AppImage';
+import CustomLogCard from '../components/CustomLogCard';
 
 const CoffeeLogScreen = () => {
   const navigation = useNavigation();
 
   const handleBack = () => {
-    // Handle navigation back
-
     navigation.goBack();
   };
 
-  const handleTrash = () => {
-    // Handle the trash button action
-  };
+  const handleTrash = () => {};
+
+  const data = [
+    {
+      id: 1,
+      coverSource: require('../Images/fire.png'),
+      title: 'Cooking Log',
+      subtitle: 'What did you Make for dinner?',
+      backgroundColor: '#e96d07',
+    },
+    {
+      id: 2,
+      coverSource: require('../Images/moon.png'),
+      title: 'Dream Journal',
+      subtitle: 'What was your dream about?',
+      backgroundColor: '#c71e1e',
+    },
+    {
+      id: 3,
+      coverSource: require('../Images/mood-swings.png'),
+      title: 'Mood Tracking',
+      subtitle: 'How are you feeling',
+      backgroundColor: '#ffc423',
+    },
+    {
+      id: 4,
+      coverSource: require('../Images/book.png'),
+      title: 'Book Reviews',
+      subtitle: 'How was that book?',
+      backgroundColor: '#0fa3dd',
+    },
+    {
+      id: 5,
+      coverSource: require('../Images/bookmark.png'),
+      title: 'Bookmarks',
+      subtitle: 'Where did you leave off?',
+      backgroundColor: 'green',
+    },
+    {
+      id: 6,
+      coverSource: require('../Images/film.png'),
+      title: 'Film Log',
+      subtitle: 'What did you watch last night?',
+      backgroundColor: '#ac0d84',
+    },
+    {
+      id: 7,
+      coverSource: require('../Images/coffee-cup.png'),
+      title: 'Coffee Tasting',
+      subtitle: "What's brewing this morning?",
+      backgroundColor: '#8f4b14',
+    },
+    {
+      id: 8,
+      coverSource: require('../Images/thumbtacks.png'),
+      title: 'ToDo',
+      subtitle: 'What do you need to do?',
+      backgroundColor: '#2b740f',
+    },
+    {
+      id: 9,
+      coverSource: require('../Images/code.png'),
+      title: 'Code Log',
+      subtitle: 'What code did you write yesterday?',
+      backgroundColor: '#0fa3dd',
+    },
+    {
+      id: 10,
+      coverSource: require('../Images/walking.png'),
+      title: 'Go for a Walk',
+      subtitle: 'Did you go for a walk?',
+      backgroundColor: '#ffc423',
+    },
+  ];
   return (
     <View style={{flex: 1, backgroundColor: 'white'}}>
       <StatusBar backgroundColor="#c42b84" />
@@ -28,9 +98,11 @@ const CoffeeLogScreen = () => {
             justifyContent: 'space-between',
           }}>
           <IconButton
-            icon="arrow-left"
+            icon="chevron-left"
+            size={40}
             onPress={handleBack}
             iconColor="white"
+            style={{marginLeft: 0}}
           />
           <Text
             style={{
@@ -40,7 +112,12 @@ const CoffeeLogScreen = () => {
             }}>
             Edit Log
           </Text>
-          <IconButton icon="delete" onPress={handleTrash} iconColor="white" />
+          <IconButton
+            icon="trash-can"
+            size={30}
+            onPress={handleTrash}
+            iconColor="white"
+          />
         </View>
       </Appbar.Header>
       <View
@@ -84,48 +161,18 @@ const CoffeeLogScreen = () => {
           Log my Daily Brews
         </Button>
       </View>
-      <Card
-        elevation={0}
-        style={{
-          margin: '5%',
-          marginTop: '4%',
-          borderRadius: 7,
-          shadowColor: 'white',
-          backgroundColor: 'white',
-        }}>
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-          }}>
-          <View
-            style={{
-              width: '15%',
-              height: '100%',
-              backgroundColor: 'orange',
-              borderRadius: 0,
-            }}>
-            <Card.Cover
-              source={require('../Images/sparkler.png')}
-              tintColor={'white'}
-              style={{
-                width: 32,
-                height: 32,
-                backgroundColor: 'transparent',
-                borderRadius: 0,
-                marginLeft: '6%',
-              }}
-            />
-          </View>
-
-          <Card.Title
-            title={'title'}
-            titleStyle={{fontWeight: 'bold'}}
-            subtitle={'subtitle'}
+      <FlatList
+        data={data}
+        keyExtractor={item => item.id.toString()}
+        renderItem={({item}) => (
+          <CustomLogCard
+            coverSource={item.coverSource}
+            title={item.title}
+            subtitle={item.subtitle}
+            bgColor={item.backgroundColor}
           />
-        </View>
-      </Card>
+        )}
+      />
     </View>
   );
 };
