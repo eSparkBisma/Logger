@@ -1,12 +1,13 @@
 import React from 'react';
 import {View} from 'react-native';
-import {Card} from 'react-native-paper';
+import {Card, useTheme} from 'react-native-paper';
 
 interface CustomLogCardProps {
   coverSource?: any; // The source for Card.Cover
   title: string; // The title for Card.Title
   subtitle: string;
   bgColor?: string;
+  theme: ReactNativePaper.Theme;
 }
 
 const CustomLogCard: React.FC<CustomLogCardProps> = ({
@@ -14,16 +15,17 @@ const CustomLogCard: React.FC<CustomLogCardProps> = ({
   title,
   subtitle,
   bgColor,
+  theme,
 }) => {
   return (
     <Card
       style={{
         // margin: '5%',
-        marginLeft: '5%',
+        marginHorizontal: '4%',
         marginTop: '2%',
         borderRadius: 7,
-        shadowColor: 'white',
-        backgroundColor: 'white',
+        shadowColor: theme.colors.text,
+        backgroundColor: theme.dark ? '#25232A' : 'white',
       }}>
       <View
         style={{

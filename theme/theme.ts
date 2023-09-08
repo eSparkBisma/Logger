@@ -5,10 +5,11 @@ export const lightTheme ={
     colors: {
       ...DefaultTheme.colors,
       primary: '#ffffff',
-      accent: '#f1c40f',
+      accent: '#ffffff',
       background: '#ffffff',
       surface: '#ffffff',
       text: '#333333',
+      icon: '#888888',
     }
 }
 
@@ -21,5 +22,6 @@ export const darkTheme = {
       background: '#121212',
       surface: '#333333',
       text: '#ffffff',
+      icon: '#ffffff',
     },
   };

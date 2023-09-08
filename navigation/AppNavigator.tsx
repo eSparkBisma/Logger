@@ -4,18 +4,14 @@ import NewLogScreen from '../screens/NewLogScreen';
 import ViewLogsScreen from '../screens/ViewLogsScreen';
 import CoffeeLogScreen from '../screens/CoffeeLogScreen';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {ScreenNavigationProp} from './type';
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<ScreenNavigationProp>();
 
 const AppNavigator = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen
-          name="NewLogScreen"
-          component={NewLogScreen}
-          options={{headerShown: false}}
-        />
         <Stack.Screen
           name="ViewLogsScreen"
           component={ViewLogsScreen}
@@ -23,6 +19,12 @@ const AppNavigator = () => {
             headerShown: false,
           }}
         />
+        <Stack.Screen
+          name="NewLogScreen"
+          component={NewLogScreen}
+          options={{headerShown: false}}
+        />
+
         <Stack.Screen
           name="CoffeeLogScreen"
           component={CoffeeLogScreen}

@@ -1,18 +1,69 @@
 import {useNavigation} from '@react-navigation/native';
 import React from 'react';
-import {FlatList, StatusBar, View} from 'react-native';
-import {Appbar, Button, IconButton, Text} from 'react-native-paper';
+import {FlatList, ScrollView, StatusBar, View} from 'react-native';
+import {Appbar, Button, IconButton, Text, useTheme} from 'react-native-paper';
 import AppImage from '../components/AppImage';
 import CustomLogCard from '../components/CustomLogCard';
+import {ScreenNavigationProp} from '../navigation/type';
 
 const CoffeeLogScreen = () => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<ScreenNavigationProp>();
+  const theme = useTheme();
 
   const handleBack = () => {
     navigation.goBack();
   };
 
-  const handleTrash = () => {};
+  const handleTrash = () => {
+    console.log('Log deleted');
+  };
+
+  const headercomponent = () => {
+    return (
+      <View
+        style={{
+          backgroundColor: theme.dark ? '#6e0950' : '#c42b84',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+        <View
+          style={{
+            backgroundColor: 'rgba(255, 105, 180, 0.2)',
+            borderRadius: 50,
+            width: 60,
+            height: 60,
+            paddingLeft: 13,
+            paddingTop: 13,
+          }}>
+          <AppImage
+            source={require('../Images/sparkler.png')}
+            width={30}
+            height={30}
+            style={{paddingLeft: 10}}
+          />
+        </View>
+        <Text
+          style={{
+            fontSize: 35,
+            color: 'white',
+            fontWeight: 'bold',
+            marginTop: '2%',
+          }}>
+          Coffee Log
+        </Text>
+        <Button
+          style={{
+            backgroundColor: 'rgba(255, 192, 203, 0.2)',
+            margin: '4%',
+            width: '80%',
+            borderRadius: 3,
+          }}
+          textColor="#ffffff">
+          Log my Daily Brews
+        </Button>
+      </View>
+    );
+  };
 
   const data = [
     {
@@ -86,10 +137,15 @@ const CoffeeLogScreen = () => {
       backgroundColor: '#ffc423',
     },
   ];
+
   return (
-    <View style={{flex: 1, backgroundColor: 'white'}}>
-      <StatusBar backgroundColor="#c42b84" />
-      <Appbar.Header style={{backgroundColor: '#c42b84'}}>
+    <View
+      style={{
+        flex: 1,
+        backgroundColor: theme.dark ? '#36343a' : 'white',
+      }}>
+      <Appbar.Header
+        style={{backgroundColor: theme.dark ? '#6e0950' : '#c42b84'}}>
         <View
           style={{
             flexDirection: 'row',
@@ -120,48 +176,10 @@ const CoffeeLogScreen = () => {
           />
         </View>
       </Appbar.Header>
-      <View
-        style={{
-          backgroundColor: '#c42b84',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}>
-        <View
-          style={{
-            backgroundColor: 'rgba(255, 105, 180, 0.2)',
-            borderRadius: 50,
-            width: 60,
-            height: 60,
-            paddingLeft: 13,
-            paddingTop: 13,
-          }}>
-          <AppImage
-            source={require('../Images/sparkler.png')}
-            width={30}
-            height={30}
-            style={{paddingLeft: 10}}
-          />
-        </View>
-        <Text
-          style={{
-            fontSize: 35,
-            color: 'white',
-            fontWeight: 'bold',
-            marginTop: '2%',
-          }}>
-          Coffee Log
-        </Text>
-        <Button
-          style={{
-            backgroundColor: 'rgba(255, 192, 203, 0.2)',
-            margin: '4%',
-            width: '80%',
-            borderRadius: 3,
-          }}>
-          Log my Daily Brews
-        </Button>
-      </View>
+      <StatusBar backgroundColor={theme.dark ? '#6e0950' : '#c42b84'} />
+
       <FlatList
+        ListHeaderComponent={headercomponent}
         data={data}
         keyExtractor={item => item.id.toString()}
         renderItem={({item}) => (
@@ -170,6 +188,7 @@ const CoffeeLogScreen = () => {
             title={item.title}
             subtitle={item.subtitle}
             bgColor={item.backgroundColor}
+            theme={theme}
           />
         )}
       />

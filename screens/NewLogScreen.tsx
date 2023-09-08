@@ -1,19 +1,43 @@
 import * as React from 'react';
 import {View, StyleSheet, FlatList, ScrollView, StatusBar} from 'react-native';
-import {Appbar, IconButton, Text} from 'react-native-paper';
+import {Appbar, IconButton, Text, useTheme} from 'react-native-paper';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import CustomCard from '../components/CustomCard';
 import {useNavigation} from '@react-navigation/native';
+import {ScreenNavigationProp} from '../navigation/type';
 
 type NewLogScreenProps = {
   navigation: NativeStackNavigationProp<any>; // You can replace 'any' with your specific stack's navigation type
 };
 
-const NewLogScreen: React.FC<NewLogScreenProps> = ({navigation}) => {
-  // const navigation = useNavigation();
+const NewLogScreen: React.FC<NewLogScreenProps> = () => {
+  const navigation = useNavigation<ScreenNavigationProp>();
 
   const handleClose = () => {
     navigation.navigate('ViewLogsScreen'); // Navigate back to the previous screen
+  };
+
+  const theme = useTheme();
+  const headercomponent = () => {
+    return (
+      <>
+        <Text style={{padding: 15, fontSize: 28}}>
+          <Text style={{fontWeight: 'bold'}}>
+            A Log is a journal with purpose.
+          </Text>{' '}
+          You can log anything you want, with as much detail as you want.
+        </Text>
+        <Text
+          style={{
+            padding: 15,
+            paddingTop: 20,
+            fontSize: 20,
+            fontWeight: 'bold',
+          }}>
+          Pick a template, or build your own custom Log from scratch.
+        </Text>
+      </>
+    );
   };
 
   const data = [
@@ -36,7 +60,7 @@ const NewLogScreen: React.FC<NewLogScreenProps> = ({navigation}) => {
       coverSource: require('../Images/moon.png'),
       title: 'Dream Journal',
       subtitle: 'What was your dream about?',
-      tintcolor: '#020261',
+      tintcolor: '#6e0950',
     },
     {
       id: 3,
@@ -94,42 +118,33 @@ const NewLogScreen: React.FC<NewLogScreenProps> = ({navigation}) => {
   ];
 
   return (
-    <View style={{flex: 1}}>
+    <View
+      style={{
+        flex: 1,
+        backgroundColor: theme.dark ? '#36343a' : '#e7e8ee',
+      }}>
       <StatusBar backgroundColor="transparent" />
-      <Appbar.Header mode="center-aligned">
+      <Appbar.Header
+        mode="center-aligned"
+        style={{backgroundColor: theme.dark ? '#25232A' : 'white'}}>
         <IconButton icon="close-circle" size={26} onPress={handleClose} />
         <Appbar.Content title="Start a new log" />
       </Appbar.Header>
-      <ScrollView>
-        <Text style={{padding: 15, fontSize: 28}}>
-          <Text style={{fontWeight: 'bold'}}>
-            A Log is a journal with purpose.
-          </Text>{' '}
-          You can log anything you want, with as much detail as you want.
-        </Text>
-        <Text
-          style={{
-            padding: 15,
-            paddingTop: 20,
-            fontSize: 20,
-            fontWeight: 'bold',
-          }}>
-          Pick a template, or build your own custom Log from scratch.
-        </Text>
-        <FlatList
-          data={data}
-          keyExtractor={item => item.id.toString()}
-          numColumns={2}
-          renderItem={({item}) => (
-            <CustomCard
-              coverSource={item.coverSource}
-              title={item.title}
-              subtitle={item.subtitle}
-              tintColor={item.tintcolor}
-            />
-          )}
-        />
-      </ScrollView>
+
+      <FlatList
+        ListHeaderComponent={headercomponent}
+        data={data}
+        keyExtractor={item => item.id.toString()}
+        numColumns={2}
+        renderItem={({item}) => (
+          <CustomCard
+            coverSource={item.coverSource}
+            title={item.title}
+            subtitle={item.subtitle}
+            tintColor={item.tintcolor}
+          />
+        )}
+      />
     </View>
   );
 };
